@@ -25,7 +25,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+reserve = Reserve::Store.new(Redis.new)
+
+# store an item with a given key and expiry
+item = reserve.keep :item, 3600 do
+  { value: "this is item" }
+end
+
+item # => { value: "this is item" }
+```
 
 ## Contributing
 
