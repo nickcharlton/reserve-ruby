@@ -10,6 +10,6 @@ describe 'Reserve Main Methods' do
       redis = MockRedis.new
     end
 
-    @reserve = Reserve.new(redis)
+    @reserve = Reserve::Store.new(redis)
   end
 end

@@ -1,5 +1,6 @@
 require "reserve/version"
+require "reserve/store"
 
 module Reserve
-  # Your code goes here...
+
 end
