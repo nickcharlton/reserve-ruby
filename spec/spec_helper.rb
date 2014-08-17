@@ -7,6 +7,7 @@ Coveralls.wear!
 # test framework
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mock_redis'
 
 # pull in the library
 require File.expand_path '../lib/reserve.rb', __dir__
