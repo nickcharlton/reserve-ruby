@@ -12,4 +12,14 @@ describe 'Reserve Main Methods' do
 
     @reserve = Reserve::Store.new(redis)
   end
+
+  it 'stores a simple object using a key' do
+    item = @reserve.keep :item, 3600 do
+      { value: "this is item" }
+    end
+
+    item.wont_be_nil
+    item.must_be_kind_of Hash
+    item.must_equal Hash[value: "this is item"]
+  end
 end
