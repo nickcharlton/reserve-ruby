@@ -7,6 +7,7 @@ Coveralls.wear!
 # test framework
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'redis'
 require 'mock_redis'
 
 # pull in the library
