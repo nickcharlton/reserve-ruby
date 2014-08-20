@@ -5,12 +5,12 @@ describe 'Reserve Main Methods' do
   before do
     # use MockRedis if just testing, real redis if in CI
     if ENV['CI']
-      redis = Redis.new
+      @redis = Redis.new
     else
-      redis = MockRedis.new
+      @redis = MockRedis.new
     end
 
-    @reserve = Reserve::Store.new(redis)
+    @reserve = Reserve::Store.new(@redis)
   end
 
   it 'stores a simple object using a key' do
