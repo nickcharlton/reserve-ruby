@@ -9,7 +9,7 @@ module Reserve
     def keep(key, expiry, &block)
       item = @redis.get key.to_s
       if item
-        item = JSON.parse item
+        item = JSON.parse item, {symbolize_names: true}
       else
         item = block.call
 
