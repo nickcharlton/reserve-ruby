@@ -20,7 +20,7 @@ describe 'Reserve Main Methods' do
 
     item.wont_be_nil
     item.must_be_kind_of Hash
-    item.must_equal Hash[value: "this is item"]
+    item.must_equal({value: "this is item"})
   end
 
   it 'sets the timeout correctly on an object' do
