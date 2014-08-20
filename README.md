@@ -14,17 +14,11 @@ automatically disappear after a set period of time.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Reserve isn't (yet) on [RubyGems][], so add the repo to your [Gemfile][]:
 
-    gem 'reserve'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install reserve
+```ruby
+gem 'reserve', :git => 'https://github.com/nickcharlton/reserve-ruby.git'
+```
 
 ## Usage
 
@@ -50,3 +44,6 @@ item # => { value: "this is item" }
 ## Author
 
 Copyright (c) 2014 Nick Charlton <nick@nickcharlton.net>
+
+[RubyGems]: http://rubygems.org
+[Gemfile]: http://bundler.io
