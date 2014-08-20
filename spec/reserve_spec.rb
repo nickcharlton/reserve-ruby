@@ -22,4 +22,14 @@ describe 'Reserve Main Methods' do
     item.must_be_kind_of Hash
     item.must_equal Hash[value: "this is item"]
   end
+
+  it 'sets the timeout correctly on an object' do
+    item = @reserve.keep :item, 3600 do
+      { value: "this is item" }
+    end
+
+    item.wont_be_nil
+    item_ttl = @redis.ttl(:item)
+    item_ttl.must_equal 3600
+  end
 end
