@@ -10,11 +10,11 @@ describe 'Reserve Main Methods' do
       @redis = MockRedis.new
     end
 
-    @reserve = Reserve::Store.new(@redis)
+    @reserve = Reserve.new(@redis)
   end
 
   it 'stores a simple object using a key' do
-    item = @reserve.keep :item, 3600 do
+    item = @reserve.store :item do
       { value: "this is item" }
     end
 
@@ -23,13 +23,39 @@ describe 'Reserve Main Methods' do
     item.must_equal({value: "this is item"})
   end
 
-  it 'sets the timeout correctly on an object' do
-    item = @reserve.keep :item, 3600 do
+  it 'sets the (default) timeout correctly on an object' do
+    item = @reserve.store :item do
+      { value: "this is item" }
+    end
+
+    item.wont_be_nil
+    item_ttl = @redis.ttl(:item)
+    item_ttl.must_equal 10800
+  end
+
+  it 'works with a custom timeout' do
+    item = @reserve.store :item, timeout: 3600 do
       { value: "this is item" }
     end
 
     item.wont_be_nil
     item_ttl = @redis.ttl(:item)
     item_ttl.must_equal 3600
+  end
+
+  it 'can skip the cache with an option' do
+    standard_item = @reserve.store :item do
+      { value: "this is item" }
+    end
+
+    standard_item.wont_be_nil
+
+    clean_item = @reserve.store :item, skip_cache: true do
+      { value: "this is a different item" }
+    end
+
+    clean_item.wont_be_nil
+
+    standard_item.wont_equal clean_item
   end
 end
