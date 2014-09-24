@@ -23,14 +23,31 @@ gem 'reserve', :git => 'https://github.com/nickcharlton/reserve-ruby.git'
 ## Usage
 
 ```ruby
-reserve = Reserve::Store.new(Redis.new)
+reserve = Reserve.new(Redis.new)
 
-# store an item with a given key and expiry
-item = reserve.keep :item, 3600 do
+# store an item with a given key
+item = reserve.store :item do
   { value: "this is item" }
 end
 
 item # => { value: "this is item" }
+```
+
+Both `Reserve.new` and `store` accept a hash of options, but they're a little
+bit different for each:
+
+For `Reserve.new`:
+
+```ruby
+default_timeout: 3600 # the default timeout to use with store.
+key_prefix: 'reserve' # the prefix to use in Redis.
+```
+
+For `store`:
+
+```ruby
+timeout: 3600 # the timeout to use when storing this item.
+skip_cache: true # skip the cache in this invokation (great for testing).
 ```
 
 ## Contributing
