@@ -2,11 +2,24 @@ require 'json'
 
 module Reserve
   class Store
-    def initialize(redis)
+    attr_accessor :redis
+    attr_accessor :default_timeout
+    attr_accessor :key_prefix
+
+    def initialize redis, opts={}
       @redis = redis
+
+      @default_timeout = opts[:default_timeout] || 10800
+      @key_prefix = opts[:key_prefix] || 'reserve'
     end
 
-    def keep(key, expiry, &block)
+    def store key, opts={}, &block
+      timeout = opts[:timeout] || @default_timeout
+
+      if opts[:skip_cache]
+        return block.call
+      end
+
       item = @redis.get key.to_s
       if item
         item = JSON.parse item, {symbolize_names: true}
@@ -15,7 +28,7 @@ module Reserve
 
         @redis.pipelined do
           @redis.set key.to_s, item.to_json
-          @redis.expire key.to_s, expiry
+          @redis.expire key.to_s, timeout
         end
       end
 
