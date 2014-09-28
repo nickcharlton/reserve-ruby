@@ -14,21 +14,22 @@ module Reserve
     end
 
     def store key, opts={}, &block
+      real_key = "#{@key_prefix}_#{key.to_s}"
       timeout = opts[:timeout] || @default_timeout
 
       if opts[:skip_cache]
         return block.call
       end
 
-      item = @redis.get key.to_s
+      item = @redis.get real_key
       if item
         item = JSON.parse item, {symbolize_names: true}
       else
         item = block.call
 
         @redis.pipelined do
-          @redis.set key.to_s, item.to_json
-          @redis.expire key.to_s, timeout
+          @redis.set real_key, item.to_json
+          @redis.expire real_key, timeout
         end
       end
 

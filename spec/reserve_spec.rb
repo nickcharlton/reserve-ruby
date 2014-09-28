@@ -29,7 +29,7 @@ describe 'Reserve Main Methods' do
     end
 
     item.wont_be_nil
-    item_ttl = @redis.ttl(:item)
+    item_ttl = @redis.ttl("reserve_#{:item.to_s}")
     item_ttl.must_equal 10800
   end
 
@@ -39,7 +39,7 @@ describe 'Reserve Main Methods' do
     end
 
     item.wont_be_nil
-    item_ttl = @redis.ttl(:item)
+    item_ttl = @redis.ttl("reserve_#{:item.to_s}")
     item_ttl.must_equal 3600
   end
 
