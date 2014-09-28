@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nickcharlton/reserve-ruby.svg?branch=master)](https://travis-ci.org/nickcharlton/reserve-ruby)
 [![Coverage Status](https://img.shields.io/coveralls/nickcharlton/reserve-ruby.svg)](https://coveralls.io/r/nickcharlton/reserve-ruby)
+[![Inline docs](http://inch-ci.org/github/nickcharlton/reserve-ruby.svg?branch=master)](http://inch-ci.org/github/nickcharlton/reserve-ruby)
 
 This gem provides simple object caching support using Redis.
 
