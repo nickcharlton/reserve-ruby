@@ -13,6 +13,10 @@ describe 'Reserve Main Methods' do
     @reserve = Reserve.new(@redis)
   end
 
+  after do
+    @reserve.clear
+  end
+
   it 'stores a simple object using a key' do
     item = @reserve.store :item do
       { value: "this is item" }

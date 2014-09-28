@@ -35,5 +35,12 @@ module Reserve
 
       item
     end
+
+    def clear
+      keys = @redis.keys "#{@key_prefix}*"
+      unless keys.empty?
+        @redis.del keys
+      end
+    end
   end
 end
