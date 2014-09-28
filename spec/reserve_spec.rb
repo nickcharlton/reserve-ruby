@@ -3,8 +3,8 @@ require File.expand_path 'spec_helper.rb', __dir__
 
 describe 'Reserve Main Methods' do
   before do
-    # use MockRedis if just testing, real redis if in CI
-    if ENV['CI']
+    # use MockRedis if just testing, real redis if in CI or if USE_REDIS is set.
+    if ENV['CI'] || ENV['USE_REDIS']
       @redis = Redis.new
     else
       @redis = MockRedis.new
